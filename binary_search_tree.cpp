@@ -401,14 +401,14 @@ int main()
 
     // obj.in_successor(obj.root -> left);
 
-    obj.del(obj.root, 2); 
-    cout<<endl;
-    obj.inorder(obj.root);
+    // obj.del(obj.root, 2); 
+    // cout<<endl;
+    // obj.inorder(obj.root);
     
 
-    obj.del(obj.root, 10); 
-    cout<<endl;
-    obj.inorder(obj.root);
+    // obj.del(obj.root, 10); 
+    // cout<<endl;
+    // obj.inorder(obj.root);
 
 
 
