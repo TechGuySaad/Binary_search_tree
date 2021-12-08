@@ -30,6 +30,7 @@ class BST
         root = NULL;
         temp = NULL;
         temp1 = NULL;
+        temp2 = NULL;
 
     }
 
@@ -117,6 +118,7 @@ void BST::in_successor(node *r)
     if(temp -> right != NULL)
     {
         r = temp -> right;
+
     }
 
     while( r -> left -> left != NULL)
@@ -130,202 +132,168 @@ void BST::in_successor(node *r)
 
 void BST::del(node *r, int key)
 {
-    if(r == root)
-    {
+    
         temp = r;
-    }
+    
   
     
     
     //leaf node
 
-    if(r == root && (r -> info == root-> info) && r-> left == NULL & r -> right == NULL)
-    {
-        delete root;
-        root = NULL;
-        return;
-    }
+   
 
-    if(temp -> left -> info == key )
+    if(temp -> left != NULL )
     {
-        if(temp -> left -> left == NULL && temp -> left -> right == NULL)
+        if(temp -> left -> info == key)
         {
-            delete temp -> left;
-            temp -> left = NULL;
-            return;
+            if((temp -> left -> left == NULL) && temp -> left -> right == NULL)
+            {
+                delete temp -> left;
+                temp -> left = NULL;
+                
+                return;
 
+            }
         }
         
     }
 
-    if(temp -> right -> info == key)
+    if(temp -> right != NULL)
     {
-        if(temp ->right -> left == NULL && temp -> right -> right == NULL)
+        if(temp -> right -> info == key)
         {
-            delete temp -> right ;
-            temp -> right = NULL;
-            return;
+            if(temp ->right -> left == NULL && temp -> right -> right == NULL)
+            {
+                delete temp -> right ;
+                temp -> right = NULL;
+                return;
 
+            }
         }
     }
 
 
     //one child
 
-    //special condition for root node
-    if(r == root && r -> info == key)
-    {
-        if(r -> left != NULL && r -> right == NULL)
-        {
-            temp1 = root;
-            root = root -> left;
-            delete temp1;
-            return;
 
-
-        }
-
-        if(r -> right != NULL && r -> left == NULL)
-        {
-            temp1 = root;
-            root = root -> right;
-            delete temp1;
-            return;
-
-        }
-    }
-
-    if(temp -> left -> info == key)
-    {
-        if(temp -> left -> left != NULL && temp -> left -> right == NULL)
-        {
-            temp1 = temp -> left ;
-            temp -> left = temp1-> left;
-            delete temp1;
-            temp1 = NULL;
-            return;
+    // if(temp -> left -> info == key)
+    // {
+    //     if(temp -> left -> left != NULL && temp -> left -> right == NULL)
+    //     {
+    //         temp1 = temp -> left ;
+    //         temp -> left = temp1-> left;
+    //         delete temp1;
+    //         temp1 = NULL;
+    //         return;
             
 
-        }
+    //     }
 
-        if(temp -> left -> left == NULL && temp -> left -> right != NULL)
-        {
-            temp1 = temp -> left;
-            temp -> left = temp1 -> right;
-            delete temp1;
-            temp1 = NULL;
-            return;
+    //     if(temp -> left -> left == NULL && temp -> left -> right != NULL)
+    //     {
+    //         temp1 = temp -> left;
+    //         temp -> left = temp1 -> right;
+    //         delete temp1;
+    //         temp1 = NULL;
+    //         return;
 
 
-        }
-    }
+    //     }
+    // }
 
-    if(temp -> right -> info == key)
-    {
-        if(temp -> right -> left != NULL && temp -> right -> right == NULL)
-        {
-            temp1 = temp -> right;
-            temp -> right = temp1 -> left;
-            delete temp1;
-            temp1 = NULL;
-            return;
+    // if(temp -> right -> info == key)
+    // {
+    //     if(temp -> right -> left != NULL && temp -> right -> right == NULL)
+    //     {
+    //         temp1 = temp -> right;
+    //         temp -> right = temp1 -> left;
+    //         delete temp1;
+    //         temp1 = NULL;
+    //         return;
 
-        }
+    //     }
 
-        if(temp -> right -> left == NULL && temp -> right -> right != NULL)
-        {
-            temp1 = temp -> right;
-            temp -> right = temp1 -> right;
-            delete temp1;
-            temp1 = NULL;
-            return;
+    //     if(temp -> right -> left == NULL && temp -> right -> right != NULL)
+    //     {
+    //         temp1 = temp -> right;
+    //         temp -> right = temp1 -> right;
+    //         delete temp1;
+    //         temp1 = NULL;
+    //         return;
 
-        }
-    }
+    //     }
+    // }
 
     // two children
-    //special condition for root node
-    if(r == root && r -> info == key)
-    {
-        if(r -> left != NULL && r -> right != NULL)
-        {
-            temp = r;
-            
-            
+ 
 
-            //finding inorder successor
-            if(temp -> right != NULL)
-            {
-                temp = temp -> right;
-            }
-            while(temp -> left != NULL)
-            {
-                temp = temp -> left;
-            }
+    // if(temp -> left -> info == key)
+    // {
+    //     if(temp -> left -> left != NULL && temp -> left -> right != NULL)
+    //     {
+    //         temp1 = temp-> left;
+    //         temp2 = temp1;
 
-            temp -> info = r -> info;
-            del(r -> right,temp->info);
-            
+    //         //finding inorder successor
+    //         if(temp2 -> right != NULL)
+    //         {
+    //             temp2 = temp2 -> right;
+    //         }
+    //         while(temp2 -> left != NULL)
+    //         {
+    //             temp2 = temp2 -> left;
+    //         }
 
-        }
-
-    }
-
-    if(temp -> left -> info == key)
-    {
-        if(temp -> left -> left != NULL && temp -> left -> right != NULL)
-        {
-            temp1 = temp-> left;
-            temp2 = temp1;
-
-            //finding inorder successor
-            if(temp2 -> right != NULL)
-            {
-                temp2 = temp2 -> right;
-            }
-            while(temp2 -> left != NULL)
-            {
-                temp2 = temp2 -> left;
-            }
-
-            temp1 -> info = temp2 -> info;
-            del(temp1 -> right,temp2->info);
+    //         temp1 -> info = temp2 -> info;
+    //         del(temp1 -> right,temp2->info);
 
 
 
             
 
 
-        }
+    //     }
 
        
 
-    }
+    // }
 
 
-    if(temp -> right -> info == key)
-    {
-        if(temp -> right -> left != NULL && temp -> right -> right != NULL)
-        {
-            temp1 = temp-> right;
-            temp2 = temp1;
+    // if(temp -> right -> info == key)
+    // {
+    //     if(temp -> right -> left != NULL && temp -> right -> right != NULL)
+    //     {
+    //         temp1 = temp-> right;
+    //         temp2 = temp1;
 
-            //finding inorder successor
-            if(temp2 -> right != NULL)
-            {
-                temp2 = temp2 -> right;
-            }
-            while(temp2 -> left != NULL)
-            {
-                temp2 = temp2 -> left;
-            }
+    //         //finding inorder successor
+    //         if(temp2 -> right != NULL)
+    //         {
+    //             temp2 = temp2 -> right;
+    //         }
+    //         while(temp2 -> left != NULL)
+    //         {
+    //             temp2 = temp2 -> left;
+    //         }
 
-            temp1 -> info = temp2 -> info;
-            del(temp1 -> right,temp2->info);
+    //         temp1 -> info = temp2 -> info;
+    //         del(temp1 -> right,temp2->info);
             
 
-        }
+    //     }
 
+    // }
+
+    if(key < temp->info)
+    {
+        del(temp -> left,key);
+        return;
+    }
+
+    if(key > temp->info)
+    {
+        del(temp -> right,key);
+        return;
     }
 
 
@@ -355,10 +323,43 @@ int main()
     obj.insert(obj.root, 3);
     obj.insert(obj.root, 10);
     obj.insert(obj.root, 9);
-    obj.insert(obj.root, 15);
-    obj.insert(obj.root, 20);
+    
+    
 
-    // obj.insert(obj.root, 8);
+    obj.inorder(obj.root);
+    obj.del(obj.root, 1);
+    cout<<endl;
+    obj.inorder(obj.root);
+    
+
+    obj.del(obj.root, 3);
+    cout<<endl;
+    obj.inorder(obj.root);
+
+    obj.del(obj.root, 9);
+    cout<<endl;
+    obj.inorder(obj.root);
+    
+
+    // obj.del(obj.root, 20);
+    // cout<<endl;
+    // obj.inorder(obj.root);
+
+    // obj.del(obj.root, 15);
+    // cout<<endl;
+    // obj.inorder(obj.root);
+
+    obj.del(obj.root, 10);
+    cout<<endl;
+    obj.inorder(obj.root);
+
+    obj.del(obj.root, 8);
+    cout<<endl;
+    obj.inorder(obj.root);
+
+    obj.del(obj.root, 2);
+    cout<<endl;
+    obj.inorder(obj.root);
 
 
     
