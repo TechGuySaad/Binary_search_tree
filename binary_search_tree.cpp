@@ -20,7 +20,7 @@ struct node
 
 class BST 
 {
-    node  *temp, *temp1;
+    node  *temp, *temp1 , *temp2;
 
     public:
     node *root;
@@ -37,7 +37,7 @@ class BST
     void search(node *, int);
     void del(node * , int);
     void inorder(node *);
-    void in_successor(node * , int);
+    void in_successor(node *);
     void in_predecessor(node *, int);
 
 
@@ -112,17 +112,40 @@ void BST::insert(node *r , int key)
     
 }
 
+void BST::in_successor(node *r)
+{
+    if(temp -> right != NULL)
+    {
+        r = temp -> right;
+    }
+
+    while( r -> left -> left != NULL)
+    {
+        r = r -> left;
+    }
+    temp2 = r;
+    return;
+}
+
+
 void BST::del(node *r, int key)
 {
-    if(r == root && r-> left == NULL & r -> right == NULL)
+    if(r == root)
+    {
+        temp = r;
+    }
+  
+    
+    
+    //leaf node
+
+    if(r == root && (r -> info == root-> info) && r-> left == NULL & r -> right == NULL)
     {
         delete root;
         root = NULL;
         return;
     }
-    
-    
-    //leaf node
+
     if(temp -> left -> info == key )
     {
         if(temp -> left -> left == NULL && temp -> left -> right == NULL)
@@ -148,6 +171,29 @@ void BST::del(node *r, int key)
 
 
     //one child
+
+    //special condition for root node
+    if(r == root && r -> info == key)
+    {
+        if(r -> left != NULL && r -> right == NULL)
+        {
+            temp1 = root;
+            root = root -> left;
+            delete temp1;
+            return;
+
+
+        }
+
+        if(r -> right != NULL && r -> left == NULL)
+        {
+            temp1 = root;
+            root = root -> right;
+            delete temp1;
+            return;
+
+        }
+    }
 
     if(temp -> left -> info == key)
     {
@@ -198,6 +244,91 @@ void BST::del(node *r, int key)
     }
 
     // two children
+    //special condition for root node
+    if(r == root && r -> info == key)
+    {
+        if(r -> left != NULL && r -> right != NULL)
+        {
+            temp = r;
+            
+            
+
+            //finding inorder successor
+            if(temp -> right != NULL)
+            {
+                temp = temp -> right;
+            }
+            while(temp -> left != NULL)
+            {
+                temp = temp -> left;
+            }
+
+            temp -> info = r -> info;
+            del(r -> right,temp->info);
+            
+
+        }
+
+    }
+
+    if(temp -> left -> info == key)
+    {
+        if(temp -> left -> left != NULL && temp -> left -> right != NULL)
+        {
+            temp1 = temp-> left;
+            temp2 = temp1;
+
+            //finding inorder successor
+            if(temp2 -> right != NULL)
+            {
+                temp2 = temp2 -> right;
+            }
+            while(temp2 -> left != NULL)
+            {
+                temp2 = temp2 -> left;
+            }
+
+            temp1 -> info = temp2 -> info;
+            del(temp1 -> right,temp2->info);
+
+
+
+            
+
+
+        }
+
+       
+
+    }
+
+
+    if(temp -> right -> info == key)
+    {
+        if(temp -> right -> left != NULL && temp -> right -> right != NULL)
+        {
+            temp1 = temp-> right;
+            temp2 = temp1;
+
+            //finding inorder successor
+            if(temp2 -> right != NULL)
+            {
+                temp2 = temp2 -> right;
+            }
+            while(temp2 -> left != NULL)
+            {
+                temp2 = temp2 -> left;
+            }
+
+            temp1 -> info = temp2 -> info;
+            del(temp1 -> right,temp2->info);
+            
+
+        }
+
+    }
+
+
 
 
 
@@ -230,7 +361,6 @@ int main()
     // obj.insert(obj.root, 8);
 
 
-    obj.inorder(obj.root);
-    cout<< endl;
+    
 
 }
