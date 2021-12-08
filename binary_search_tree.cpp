@@ -3,10 +3,16 @@ using namespace std;
 
 /*
 
-                    7
+                       
+                       4
+                     /    \
+                   2      8
+                  / \     /                
+                 1   3  10
+                       /                 
+                      9
 
-                  6     8
-
+Above is the bst we are working with
                   
 
 
@@ -142,7 +148,7 @@ void BST::del(node *r, int key)
 
    
 
-    if(temp -> left != NULL )
+    if(temp -> left != NULL ) // to prevent segmentation fault core dump error
     {
         if(temp -> left -> info == key)
         {
@@ -176,53 +182,63 @@ void BST::del(node *r, int key)
     //one child
 
 
-    // if(temp -> left -> info == key)
-    // {
-    //     if(temp -> left -> left != NULL && temp -> left -> right == NULL)
-    //     {
-    //         temp1 = temp -> left ;
-    //         temp -> left = temp1-> left;
-    //         delete temp1;
-    //         temp1 = NULL;
-    //         return;
-            
+    if(temp -> left  != NULL) // to prevent segmentation fault core dump error
+    {
+        if(temp -> left -> info == key) 
+        {
+            if(temp -> left -> left != NULL && temp -> left -> right == NULL)
+            {
+                temp1 = temp -> left ;
+                temp -> left = temp1-> left;
+                delete temp1;
+                temp1 = NULL;
+                return;
+                
 
-    //     }
+            }
 
-    //     if(temp -> left -> left == NULL && temp -> left -> right != NULL)
-    //     {
-    //         temp1 = temp -> left;
-    //         temp -> left = temp1 -> right;
-    //         delete temp1;
-    //         temp1 = NULL;
-    //         return;
+            if(temp -> left -> left == NULL && temp -> left -> right != NULL)
+            {
+                temp1 = temp -> left;
+                temp -> left = temp1 -> right;
+                delete temp1;
+                temp1 = NULL;
+                return;
 
 
-    //     }
-    // }
+            }
 
-    // if(temp -> right -> info == key)
-    // {
-    //     if(temp -> right -> left != NULL && temp -> right -> right == NULL)
-    //     {
-    //         temp1 = temp -> right;
-    //         temp -> right = temp1 -> left;
-    //         delete temp1;
-    //         temp1 = NULL;
-    //         return;
+        }
+        
+    }
 
-    //     }
+    if(temp -> right != NULL)
+    {
+        if(temp -> right -> info == key)
+        {
+            if(temp -> right -> left != NULL && temp -> right -> right == NULL)
+            {
+                temp1 = temp -> right;
+                temp -> right = temp1 -> left;
+                delete temp1;
+                temp1 = NULL;
+                return;
 
-    //     if(temp -> right -> left == NULL && temp -> right -> right != NULL)
-    //     {
-    //         temp1 = temp -> right;
-    //         temp -> right = temp1 -> right;
-    //         delete temp1;
-    //         temp1 = NULL;
-    //         return;
+            }
 
-    //     }
-    // }
+            if(temp -> right -> left == NULL && temp -> right -> right != NULL)
+            {
+                temp1 = temp -> right;
+                temp -> right = temp1 -> right;
+                delete temp1;
+                temp1 = NULL;
+                return;
+
+            }
+
+        }
+
+    }
 
     // two children
  
@@ -326,28 +342,45 @@ int main()
     
     
 
-    obj.inorder(obj.root);
-    obj.del(obj.root, 1);
-    cout<<endl;
-    obj.inorder(obj.root);
+    obj.inorder(obj.root); 
+
+    //checks for first case
+
+    // obj.del(obj.root, 1);
+    // cout<<endl;
+    // obj.inorder(obj.root);
     
 
-    obj.del(obj.root, 3);
-    cout<<endl;
-    obj.inorder(obj.root);
-
-    obj.del(obj.root, 9);
-    cout<<endl;
-    obj.inorder(obj.root);
-    
-
-    // obj.del(obj.root, 20);
+    // obj.del(obj.root, 3);
     // cout<<endl;
     // obj.inorder(obj.root);
 
-    // obj.del(obj.root, 15);
+    // obj.del(obj.root, 9);
     // cout<<endl;
     // obj.inorder(obj.root);
+    
+
+    // // obj.del(obj.root, 20);
+    // // cout<<endl;
+    // // obj.inorder(obj.root);
+
+    // // obj.del(obj.root, 15);
+    // // cout<<endl;
+    // // obj.inorder(obj.root);
+
+    // obj.del(obj.root, 10);
+    // cout<<endl;
+    // obj.inorder(obj.root);
+
+    // obj.del(obj.root, 8);
+    // cout<<endl;
+    // obj.inorder(obj.root);
+
+    // obj.del(obj.root, 2);
+    // cout<<endl;
+    // obj.inorder(obj.root);
+
+    //checks for second case
 
     obj.del(obj.root, 10);
     cout<<endl;
@@ -357,9 +390,15 @@ int main()
     cout<<endl;
     obj.inorder(obj.root);
 
-    obj.del(obj.root, 2);
+    obj.del(obj.root, 3); // deleting 3 so that 2 can have 1 child
     cout<<endl;
     obj.inorder(obj.root);
+
+    obj.del(obj.root, 2); //now 2 has 1 child so deleting 2
+    cout<<endl;
+    obj.inorder(obj.root);
+
+    
 
 
     
