@@ -9,8 +9,8 @@ using namespace std;
                    2      8
                   / \     /                
                  1   3  10
-                       /                 
-                      9
+                       /   \              
+                      9     15
 
 Above is the bst we are working with
                   
