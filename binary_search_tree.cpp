@@ -121,17 +121,17 @@ void BST::insert(node *r , int key)
 
 void BST::in_successor(node *r)
 {
-    if(temp -> right != NULL)
-    {
-        r = temp -> right;
+    
+    r = r -> right;
 
-    }
+    
 
-    while( r -> left -> left != NULL)
+    while( r ->  left != NULL)
     {
         r = r -> left;
     }
     temp2 = r;
+     
     return;
 }
 
@@ -243,62 +243,60 @@ void BST::del(node *r, int key)
     // two children
  
 
-    // if(temp -> left -> info == key)
-    // {
-    //     if(temp -> left -> left != NULL && temp -> left -> right != NULL)
-    //     {
-    //         temp1 = temp-> left;
-    //         temp2 = temp1;
+    if(temp -> left != NULL)
+    {
+        if(temp -> left -> info == key)
+        {
 
-    //         //finding inorder successor
-    //         if(temp2 -> right != NULL)
-    //         {
-    //             temp2 = temp2 -> right;
-    //         }
-    //         while(temp2 -> left != NULL)
-    //         {
-    //             temp2 = temp2 -> left;
-    //         }
+            if(temp -> left -> left != NULL && temp -> left -> right != NULL)
+            {
+                temp1 = temp-> left;
+                
 
-    //         temp1 -> info = temp2 -> info;
-    //         del(temp1 -> right,temp2->info);
+                //finding inorder successor
+                in_successor(temp->left);
+
+                temp1 -> info = temp2 -> info;
+                del(temp1 ,temp2->info);
+                return;
 
 
 
-            
+                
 
 
-    //     }
+            }
+
+        }
+       
 
        
 
-    // }
+    }
 
 
-    // if(temp -> right -> info == key)
-    // {
-    //     if(temp -> right -> left != NULL && temp -> right -> right != NULL)
-    //     {
-    //         temp1 = temp-> right;
-    //         temp2 = temp1;
+    if(temp -> right != NULL)
+    {
+        if(temp -> right -> info == key)
+        {
+            if(temp -> right -> left != NULL && temp -> right -> right != NULL)
+            {
+                temp1 = temp-> right;
+                
 
-    //         //finding inorder successor
-    //         if(temp2 -> right != NULL)
-    //         {
-    //             temp2 = temp2 -> right;
-    //         }
-    //         while(temp2 -> left != NULL)
-    //         {
-    //             temp2 = temp2 -> left;
-    //         }
+                //finding inorder successor
+                in_successor(temp1);
+                
 
-    //         temp1 -> info = temp2 -> info;
-    //         del(temp1 -> right,temp2->info);
-            
+                temp1 -> info = temp2 -> info;
+                del(temp1 ,temp2->info); //not temp1 -> right because we are already standing one node before the node we are about to delete
+                return;               
 
-    //     }
+            }
+        }
+        
 
-    // }
+    }
 
     if(key < temp->info)
     {
@@ -339,6 +337,7 @@ int main()
     obj.insert(obj.root, 3);
     obj.insert(obj.root, 10);
     obj.insert(obj.root, 9);
+    obj.insert(obj.root, 15);
     
     
 
@@ -382,21 +381,38 @@ int main()
 
     //checks for second case
 
-    obj.del(obj.root, 10);
+    // obj.del(obj.root, 10);
+    // cout<<endl;
+    // obj.inorder(obj.root);
+
+    // obj.del(obj.root, 8);
+    // cout<<endl;
+    // obj.inorder(obj.root);
+
+    // obj.del(obj.root, 3); // deleting 3 so that 2 can have 1 child
+    // cout<<endl;
+    // obj.inorder(obj.root);
+
+    // obj.del(obj.root, 2); //now 2 has 1 child so deleting 2
+    // cout<<endl;
+    // obj.inorder(obj.root);
+
+    //checking for third case
+
+    // obj.in_successor(obj.root -> left);
+
+    obj.del(obj.root, 2); 
+    cout<<endl;
+    obj.inorder(obj.root);
+    
+
+    obj.del(obj.root, 10); 
     cout<<endl;
     obj.inorder(obj.root);
 
-    obj.del(obj.root, 8);
-    cout<<endl;
-    obj.inorder(obj.root);
 
-    obj.del(obj.root, 3); // deleting 3 so that 2 can have 1 child
-    cout<<endl;
-    obj.inorder(obj.root);
 
-    obj.del(obj.root, 2); //now 2 has 1 child so deleting 2
-    cout<<endl;
-    obj.inorder(obj.root);
+
 
     
 
